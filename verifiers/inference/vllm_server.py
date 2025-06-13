@@ -546,6 +546,8 @@ def llm_worker(
         max_model_len=script_args.max_model_len,
         max_num_seqs=script_args.max_batch_size,
         worker_extension_cls="verifiers.inference.vllm_server.WeightSyncWorkerExtension",
+        disable_custom_all_reduce=(script_args.tensor_parallel_size > 1),
+        disable_cascade_attn = (script_args.tensor_parallel_size > 1),
     )
 
     # Send ready signal to parent process
